@@ -19,19 +19,19 @@ const {user, product, page}=useContext(UserContext)
 function handleSelect(arg){
   setSelect(arg)
 }
-
+const sortedProduct=useMemo(()=>{switch(select){
+  case 'Lowest price': return [...product].sort((a,b)=>a.cost-b.cost)
+  case 'Highest price': return [...product].sort((a,b)=>b.cost-a.cost)
+  default:return product
+}}, [product, select])
 const slicedProduct=useMemo(()=>{
   const maxPage=Math.ceil(product.length/15)
   switch(page){
-    case 1: return([...product].slice(0,15))
-    case maxPage: return([...product].slice((maxPage-1)*15))
-    default:return([...product].slice((page-1)*15, page*15))}},[page,product]) 
+    case 1: return([...sortedProduct].slice(0,15))
+    case maxPage: return([...sortedProduct].slice((maxPage-1)*15))
+    default:return([...sortedProduct].slice((page-1)*15, page*15))}},[page,sortedProduct]) 
 
-const sortedProduct=useMemo(()=>{switch(select){
-  case 'Lowest price': return [...slicedProduct].sort((a,b)=>a.cost-b.cost)
-  case 'Highest price': return [...slicedProduct].sort((a,b)=>b.cost-a.cost)
-  default:return slicedProduct
-}}, [slicedProduct, select])
+
 
 
 
@@ -50,7 +50,7 @@ const sortedProduct=useMemo(()=>{switch(select){
           <Container maxW='5xl' bg='white'>
             <Stack marginTop='32px' direction='row'  justifyContent='space-between' >
               <Stack justifyContent='center' alignItems='center' direction='row' spacing={6} >
-                <Counter product={sortedProduct}/>
+                <Counter product={slicedProduct}/>
                 <Divider orientation='vertical' height={8} />
                 <Sorter product={product} select={select} handleSelect={handleSelect}/> 
               </Stack>
@@ -61,7 +61,7 @@ const sortedProduct=useMemo(()=>{switch(select){
             </Stack>
             <Divider marginTop={4} orientation='horizontal' />
             <Stack marginTop={6} >
-              <Grilla user={user} product={sortedProduct}/> 
+              <Grilla user={user} product={slicedProduct}/> 
             </Stack>
           </Container>
           <span>fer</span>

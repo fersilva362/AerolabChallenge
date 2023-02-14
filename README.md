@@ -1,2 +1,2 @@
-After improving the functionality of app, such add a display button of reedemed product and dividing the list of product in pages, I builded and then published in Netlify that you can access through the following link
-https://gorgeous-creponne-9f7e2a.netlify.app/
+After make some changes in the sorted page I give you the following link to access to the app
+https://sweet-fox-1a3fe1.netlify.app
